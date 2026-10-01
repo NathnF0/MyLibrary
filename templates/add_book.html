@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adicionar livro - MyLibrary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+
+<body>
+
+    <header>
+        <h1>MyLibrary</h1>
+
+        <nav>
+    <a href="/">Início</a>
+    <a href="{{ url_for('profile') }}">Perfil</a>
+
+    <button class="theme-button" onclick="toggleTheme()" type="button" id="theme-button">
+    ☾
+</button>
+</nav>
+    </header>
+
+
+    <main>
+
+        <section>
+            <h2>Adicionar livro</h2>
+            <p>Cadastre um novo livro na sua biblioteca.</p>
+        </section>
+
+
+        <section>
+
+           <form method="POST" action="{{ url_for('add_book') }}" class="book-form">
+
+                <div>
+                    <label for="title">Título</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+
+                <div>
+                    <label for="author">Autor</label>
+                    <input type="text" id="author" name="author" required>
+                </div>
+
+
+                <div>
+                    <label for="status">Status</label>
+
+                    <select id="status" name="status" required>
+                        <option value="">Selecione</option>
+                        <option value="pretendo_ler">Pretendo Ler</option>
+                        <option value="lendo">Lendo</option>
+                        <option value="concluido">Concluído</option>
+                    </select>
+                </div>
+
+
+                <button type="submit">Adicionar livro</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

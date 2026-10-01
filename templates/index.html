@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyLibrary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+
+<body>
+
+    <header>
+
+    <a href="{{ url_for('home') }}" class="brand">
+
+        <span class="book-logo">
+            <span class="book book-one"></span>
+            <span class="book book-two"></span>
+            <span class="book book-three"></span>
+        </span>
+
+        <span class="brand-name">MyLibrary</span>
+
+    </a>
+
+    <nav>
+    <a href="/">Início</a>
+    <a href="{{ url_for('profile') }}">Perfil</a>
+
+    <button class="theme-button" onclick="toggleTheme()" type="button" id="theme-button">
+    ☾
+</button>
+</nav>
+    </header>
+
+
+    <main>
+
+       <section class="home-hero">
+
+    <div class="home-hero-content">
+
+        <span class="home-hero-label">
+            SEU ESPAÇO DE LEITURA
+        </span>
+
+        <h2>Minha Biblioteca</h2>
+
+        <p>
+            Tenha seus livros organizados em um só lugar.
+        </p>
+
+    </div>
+
+    <div class="home-hero-books">
+        📚
+    </div>
+
+</section>
+
+
+        <section class="stats">
+
+    <div class="stat-card">
+        <div class="stat-icon">▥</div>
+
+        <div class="stat-info">
+            <h3>{{ total_livros }}</h3>
+            <p>Livros</p>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-icon">◷</div>
+
+        <div class="stat-info">
+            <h3>{{ livros_lendo }}</h3>
+            <p>Lendo</p>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-icon">✓</div>
+
+        <div class="stat-info">
+            <h3>{{ livros_concluidos }}</h3>
+            <p>Concluídos</p>
+        </div>
+    </div>
+
+</section>
+
+
+        <section>
+
+    <h2>Meus livros</h2>
+
+    <a href="{{ url_for('add_book') }}" class="add-button">
+        + Adicionar livro
+    </a>
+
+    <div class="books-list">
+
+        {% if livros %}
+
+            {% for livro in livros %}
+
+                <article class="book-card">
+
+    <div class="book-info">
+        <h3>{{ livro.title }}</h3>
+        <p>{{ livro.author }}</p>
+    </div>
+
+    <span class="book-status">
+        {% if livro.status == "pretendo_ler" %}
+            Pretendo Ler
+        {% elif livro.status == "lendo" %}
+            Lendo
+        {% elif livro.status == "concluido" %}
+            Concluído
+        {% endif %}
+    </span>
+
+    <div class="book-actions">
+
+        <a href="{{ url_for('edit_book', id=livro.id) }}" class="edit-button">
+            Editar
+        </a>
+
+        <form method="POST" action="{{ url_for('delete_book', id=livro.id) }}">
+            <button type="submit" class="delete-button">
+                Excluir
+            </button>
+        </form>
+
+    </div>
+
+</article>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-library">
+                Nenhum livro cadastrado ainda.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+    </main>
+
+</body>
+</html>

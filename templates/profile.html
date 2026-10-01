@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Perfil - MyLibrary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+
+<body>
+
+    <header>
+
+    <a href="{{ url_for('home') }}" class="brand">
+
+        <span class="book-logo">
+            <span class="book book-one"></span>
+            <span class="book book-two"></span>
+            <span class="book book-three"></span>
+        </span>
+
+        <span class="brand-name">MyLibrary</span>
+
+    </a>
+
+        <nav>
+    <a href="/">Início</a>
+    <a href="{{ url_for('profile') }}">Perfil</a>
+
+    <button class="theme-button" onclick="toggleTheme()" type="button" id="theme-button">
+    ☾
+</button>
+</nav>
+    </header>
+
+
+    <main>
+
+       <section class="profile-hero">
+
+    <div class="profile-hero-content">
+
+        <span class="profile-hero-label">
+            SUA JORNADA DE LEITURA
+        </span>
+
+        <h2>Meu Perfil</h2>
+
+        <p>
+            Acompanhe seu progresso e suas conquistas.
+        </p>
+
+    </div>
+
+    <div class="profile-hero-books">
+        📚
+    </div>
+
+</section>
+
+
+        <section class="stats">
+
+    <div class="stat-card">
+        <div class="stat-icon">▥</div>
+
+        <div class="stat-info">
+            <h3>{{ total_livros }}</h3>
+            <p>Livros</p>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-icon">◷</div>
+
+        <div class="stat-info">
+            <h3>{{ livros_lendo }}</h3>
+            <p>Lendo</p>
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+        <div class="stat-icon">✓</div>
+
+        <div class="stat-info">
+            <h3>{{ livros_concluidos }}</h3>
+            <p>Concluídos</p>
+        </div>
+    </div>
+
+</section>
+        
+        <section class="level-card">
+
+    <div class="level-header">
+        <div>
+            <h2>Nível {{ nivel }}</h2>
+            <p>{{ total_livros }} / {{ livros_proximo_nivel }} livros</p>
+        </div>
+
+        <span class="level-number">{{ nivel }}</span>
+    </div>
+
+    <div class="level-bar">
+        <div
+            class="level-progress"
+            style="width: {{ progresso }}%;"
+        ></div>
+    </div>
+
+    {% if nivel < 10 %}
+        <p class="level-message">
+            Faltam {{ livros_proximo_nivel - total_livros }} livro(s) para o nível {{ nivel + 1 }}.
+        </p>
+    {% else %}
+        <p class="level-message">
+            Você chegou ao nível máximo!
+        </p>
+    {% endif %}
+
+</section>
+<section class="achievements-section">
+
+    <h2>Conquistas</h2>
+
+    <div class="achievements-list">
+
+        {% if primeira_leitura %}
+            <div class="achievement">
+                <div class="achievement-icon">✓</div>
+
+                <div>
+                    <h3>Primeira Leitura</h3>
+                    <p>Você cadastrou seu primeiro livro.</p>
+                </div>
+            </div>
+        {% endif %}
+
+
+        {% if leitor_iniciante %}
+            <div class="achievement">
+                <div class="achievement-icon">★</div>
+
+                <div>
+                    <h3>Leitor Iniciante</h3>
+                    <p>Você cadastrou 3 livros na sua biblioteca.</p>
+                </div>
+            </div>
+        {% endif %}
+
+
+        {% if leitor_ativo %}
+            <div class="achievement">
+                <div class="achievement-icon">✓</div>
+
+                <div>
+                    <h3>Leitor Ativo</h3>
+                    <p>Você concluiu seu primeiro livro.</p>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+</section>
+    </main>
+
+</body>
+</html>

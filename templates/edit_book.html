@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar livro - MyLibrary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+
+<body>
+
+    <header>
+        <h1>MyLibrary</h1>
+
+        <nav>
+    <a href="/">Início</a>
+    <a href="{{ url_for('profile') }}">Perfil</a>
+
+    <button class="theme-button" onclick="toggleTheme()" type="button" id="theme-button">
+    ☾
+</button>
+</nav>
+    </header>
+
+
+    <main>
+
+        <section>
+            <h2>Editar livro</h2>
+            <p>Altere as informações do livro.</p>
+        </section>
+
+
+        <section>
+
+            <form method="POST" class="book-form">
+
+                <div>
+                    <label for="title">Título</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="{{ livro.title }}"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label for="author">Autor</label>
+                    <input
+                        type="text"
+                        id="author"
+                        name="author"
+                        value="{{ livro.author }}"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label for="status">Status</label>
+
+                    <select id="status" name="status" required>
+
+                        <option value="pretendo_ler"
+                            {% if livro.status == "pretendo_ler" %}selected{% endif %}>
+                            Pretendo Ler
+                        </option>
+
+                        <option value="lendo"
+                            {% if livro.status == "lendo" %}selected{% endif %}>
+                            Lendo
+                        </option>
+
+                        <option value="concluido"
+                            {% if livro.status == "concluido" %}selected{% endif %}>
+                            Concluído
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <button type="submit">Salvar alterações</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
